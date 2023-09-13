@@ -97,6 +97,10 @@ async function run() {
     // get orders from the database
     app.get('/orders',verifyJWT, async (req, res) => {
       // console.log(req.headers.authorization)
+      const decoded = req.decoded
+      if(decoded.email !== req.query.email) {
+        return res.send({error: true, message: 'Forbidden access denied'})
+      }
       let query = {}
       if(req.query?.email){
         query={email: req.query.email} 
