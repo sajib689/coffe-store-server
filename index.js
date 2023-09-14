@@ -23,7 +23,7 @@ const client = new MongoClient(uri, {
 const verifyJWT = (req, res, next) => {
     
     const authorization = req.headers.authorization
-    console.log(authorization)
+    
     if(!authorization) {
     return res.status(401).send({error: true, message: 'Unauthorized access denied'})
     }
@@ -39,7 +39,7 @@ const verifyJWT = (req, res, next) => {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+     client.connect();
     const coffeesCollection = client.db('coffeeDb').collection('coffees')
     const ordersCollection = client.db('coffeeDb').collection('orders')
     // send data to database api
@@ -125,7 +125,7 @@ async function run() {
       res.send({token})
     })
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+     client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
